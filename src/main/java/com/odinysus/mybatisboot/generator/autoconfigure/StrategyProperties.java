@@ -40,7 +40,7 @@ public class StrategyProperties {
     /**
      * 表名、字段名、是否使用下划线命名（默认 false）
      */
-    public static boolean DB_COLUMN_UNDERLINE = false;
+    private static boolean DB_COLUMN_UNDERLINE = false;
 
     /**
      * 是否大写命名
@@ -170,7 +170,6 @@ public class StrategyProperties {
      * </p>
      *
      * @param word 待判断字符串
-     * @return
      */
     public boolean isCapitalModeNaming(String word) {
         return isCapitalMode && StringUtils.isCapitalMode(word);
@@ -182,7 +181,6 @@ public class StrategyProperties {
      * </p>
      *
      * @param tableName 表名称
-     * @return
      */
     public boolean containsTablePrefix(String tableName) {
         if (null != tableName) {
@@ -353,7 +351,6 @@ public class StrategyProperties {
      * 设置逻辑删除字段
      *
      * @param logicDeleteFieldName 数据库字段
-     * @return
      */
     public void setLogicDeleteFieldName(String logicDeleteFieldName) {
         this.logicDeleteFieldName = logicDeleteFieldName;
@@ -367,7 +364,6 @@ public class StrategyProperties {
      * 设置乐观锁字段
      *
      * @param versionFieldName 数据库字段
-     * @return
      */
     public void setVersionFieldName(String versionFieldName) {
         this.versionFieldName = versionFieldName;
