@@ -82,7 +82,7 @@ public class GlobalProperties {
     private String mapperName = "%sMapper";
     private String xmlName = "%sMapper";
     private String serviceName = "%sService";
-    private String serviceImplName = "%sServiceImp";
+    private String serviceImplName = "%sServiceImpl";
     private String controllerName = "%sController";
     /**
      * 指定生成的主键的ID类型
