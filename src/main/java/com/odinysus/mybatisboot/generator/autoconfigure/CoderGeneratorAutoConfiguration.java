@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConditionalOnClass(AutoGenerator.class)
-@EnableConfigurationProperties({PackageProperties.class, GlobalProperties.class, StrategyProperties.class, DataSourceProperties.class, TemplateProperties.class})
+@EnableConfigurationProperties({PackageProperties.class, GlobalProperties.class, StrategyProperties.class, DatabaseProperties.class, TemplateProperties.class})
 public class CoderGeneratorAutoConfiguration {
 
 	private static Log log = LogFactory.getLog(CoderGeneratorAutoConfiguration.class);
@@ -47,7 +47,7 @@ public class CoderGeneratorAutoConfiguration {
 	@Autowired
 	private StrategyProperties strategyProperties;
 	@Autowired
-	private DataSourceProperties dataSourceProperties;
+	private DatabaseProperties databaseProperties;
 	@Autowired
 	private TemplateProperties templateProperties;
 
@@ -57,7 +57,7 @@ public class CoderGeneratorAutoConfiguration {
 	@ConditionalOnMissingBean(AutoGenerator.class)
 	public AutoGenerator getAutoGenerator() {
 		return new AutoGenerator()
-				.setDataSource(dataSourceProperties.createBulider())
+				.setDataSource(databaseProperties.createBulider())
 				.setGlobalConfig(globalProperties.createBuilder())
 				.setPackageInfo(packageProperties.createBuilder())
 				.setStrategy(strategyProperties.crateBuilder())

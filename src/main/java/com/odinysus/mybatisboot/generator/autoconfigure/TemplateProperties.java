@@ -18,7 +18,11 @@ package com.odinysus.mybatisboot.generator.autoconfigure;
 
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -31,22 +35,26 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(
 		prefix = "mybatis.gen.template"
 )
+@AutoConfigureAfter({GlobalProperties.class})
 public class TemplateProperties {
 
-	private String entity = ConstVal.TEMPLATE_ENTITY_JAVA;
+    @Resource
+    private GlobalProperties globalProperties;
 
-	private String service = ConstVal.TEMPLATE_SERVICE;
+	private String entity = "/templates/entity.java.vm";
 
-	private String serviceImpl = ConstVal.TEMPLATE_SERVICEIMPL;
+	private String service = "/templates/service.java.vm";
 
-	private String mapper = ConstVal.TEMPLATE_MAPPER;
+	private String serviceImpl = "/templates/serviceImpl.java.vm";
 
-	private String xml = ConstVal.TEMPLATE_XML;
+	private String mapper = "/templates/mapper.java.vm";
 
-	private String controller = ConstVal.TEMPLATE_CONTROLLER;
+	private String xml = "/templates/mapper.xml.vm";
+
+	private String controller = "/templates/controller.java";
 
 	public String getEntity(boolean kotlin) {
-		return kotlin ? ConstVal.TEMPLATE_ENTITY_KT : entity;
+		return kotlin ? "/templates/entity.kt.ftl" : entity;
 	}
 
 	public void setEntity(String entity) {
@@ -94,7 +102,11 @@ public class TemplateProperties {
 	}
 
 	public TemplateConfig createBuilder() {
-		return new TemplateConfig().setController(getController())
-				.setEntity(entity).setMapper(mapper).setService(service).setServiceImpl(serviceImpl);
+		return new TemplateConfig()
+                .setController(getController())
+				.setEntity(getEntity(globalProperties.isKotlin()))
+                .setMapper(getMapper())
+                .setService(getService())
+                .setServiceImpl(getServiceImpl());
 	}
 }
